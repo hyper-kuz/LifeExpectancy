@@ -57,7 +57,7 @@ public class SiasakiChanController : MonoBehaviour
 	private Script_SpriteStudio_PartsRoot YakukoController;
 	private YakukoTimer timer;//上げてから下げての時間を計測するタイマー
 	private Yakubin yakubinScript;
-	private Quest YakukoQuest;
+	private QuestFactory YakukoQuestFactory;
 	private float AgeSageTime = 0.0f;//上げてから下げての時間
 	private bool Freeze = false;
 
@@ -65,7 +65,7 @@ public class SiasakiChanController : MonoBehaviour
 	public GameObject Yakuko;
 	public GameObject Yakubin;
 	public GameObject BigHand;
-	public GameObject Quest;
+	public GameObject questFactory;
 	public GameObject LifeTimer;
 
 	// Use this for initialization
@@ -81,7 +81,7 @@ public class SiasakiChanController : MonoBehaviour
 		this.timer = new YakukoTimer ();
 
 		this.yakubinScript = Yakubin.GetComponent<Yakubin> ();
-		this.YakukoQuest = this.Quest.GetComponent<Quest> ();
+		this.YakukoQuestFactory = this.questFactory.GetComponent<QuestFactory>();
 
 	}
 	
@@ -136,7 +136,7 @@ public class SiasakiChanController : MonoBehaviour
 
 		//Nomikomuアニメーションの後だったらクエスト更新
 		if (PlayerState == YakukoState.Nomikomu) {
-			this.YakukoQuest.SetQuest (Random.Range (1, 5));
+			this.YakukoQuest.SetQuest ();
 		}
 
 		this.YakukoController.AnimationPlay (3, 0, 1, 1.0f);

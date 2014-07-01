@@ -1,28 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof (TextMesh))]
 public class Quest : MonoBehaviour {
 
+	public int YakuNumber = 0;
+
+	private int LifeTime = 5;
+	private bool isEnd = false;
+	private const string str = "粒処方セヨ！";
 	private TextMesh myTextMesh;
-	private int _CurrentNumber;
 
-	public int CurrentNumber{get{return _CurrentNumber;}}
-
-	// Use this for initialization
-	void Awake () {
+	void SetQuest(int LifeTime,int YakuNumber){
+		this.LifeTime = LifeTime;
+		this.YakuNumber = YakuNumber;
 		this.myTextMesh = this.GetComponent<TextMesh>();
-		this.myTextMesh.richText = true;
-		this.HideQuest();
+		this.myTextMesh.text = this.YakuNumber + str;
 	}
 
-	public void HideQuest(){
-		this.gameObject.SetActive(false);
-	}
+	// Update is called once per frame
+	void Update () {
 	
-	public void SetQuest(int num){
-		this.gameObject.SetActive(true);
-		this._CurrentNumber = num;
-		this.myTextMesh.text =  this.CurrentNumber + " 粒処方セヨ！";
 	}
-
 }
