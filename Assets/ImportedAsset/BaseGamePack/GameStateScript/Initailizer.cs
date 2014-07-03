@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Initailizer : State
 {
+
 	public GameObject Text;
 
 	private SiasakiChanController Player;
@@ -39,5 +40,4 @@ public class Initailizer : State
 		Player.ResetPlayer();
 		Destroy (Text);
 	}
-
 }

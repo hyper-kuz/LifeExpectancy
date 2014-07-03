@@ -10,6 +10,8 @@ public class Play : State
 	{
 		lifeTimer = GameObject.FindGameObjectWithTag("LifeTimer").GetComponent<LifeTimer>();
 		Siasaki = GameObject.FindGameObjectWithTag("Player").GetComponent<SiasakiChanController>();
+		lifeTimer.isStop = false;
+		GameObject.FindGameObjectWithTag("QuestFactory").SendMessage("InstantQuest");
 	}
 
 	public override void StateUpdate ()

@@ -25,7 +25,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	
 	protected bool CheckInstance()
 	{
-		//Debug.Log ("same object exist");
+		Debug.Log ("same object exist");
 		if( this == Instance){ return true;}
 		Destroy(this.gameObject);
 		return false;

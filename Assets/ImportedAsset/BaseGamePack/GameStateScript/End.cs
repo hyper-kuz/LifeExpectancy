@@ -14,6 +14,9 @@ public class End : State
 	public override void StateUpdate ()
 	{
 
+		if(Input.GetKeyDown(KeyCode.Z)){
+			Application.LoadLevel("Title");
+		}
 	
 	}
 

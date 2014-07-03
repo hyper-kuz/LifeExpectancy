@@ -45,8 +45,9 @@ public enum YakukoState
 {
 	Idle,
 	Ageru,
+	AgeruIdle,
+	AgeruNomu,
 	Sageru,
-	Modosu,
 	Nomikomu,
 };
 
@@ -88,30 +89,19 @@ public class SiasakiChanController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		bool doAgeruFlag = false, doSageruFlag = false, doNomikomuFlag = false, doModosuFlag = false;
+		bool InputZ = false, InputX = false, InputC = false,InputV = false;
 
 		if (Freeze == false) {
 
-			if (Input.GetKeyDown (KeyCode.Z)) {
-				doAgeruFlag = true;
-			}
+			InputZ = Input.GetKeyDown (KeyCode.Z);
+			InputX = Input.GetKeyDown (KeyCode.X);
+			InputC = Input.GetKeyDown (KeyCode.C);
+			InputV = Input.GetKeyDown (KeyCode.V);
 
-			if (Input.GetKeyDown (KeyCode.X)) {
-				doSageruFlag = true;
-			}
-
-			if (Input.GetKeyDown (KeyCode.C)) {
-				doNomikomuFlag = true;
-			}
-
-			if (Input.GetKeyDown (KeyCode.V)) {
-				doModosuFlag = true;
-			}
-
-			animator.SetBool ("doAgeru", doAgeruFlag);
-			animator.SetBool ("doSageru", doSageruFlag);
-			animator.SetBool ("doNomikomu", doNomikomuFlag);
-			animator.SetBool ("doModosu", doModosuFlag);
+			animator.SetBool ("InputZ",InputZ);
+			animator.SetBool ("InputX",InputX);
+			animator.SetBool ("InputC",InputC);
+			animator.SetBool ("InputV",InputV);
 
 			timer.Update (Time.deltaTime);
 		}
@@ -135,18 +125,38 @@ public class SiasakiChanController : MonoBehaviour
 	{
 
 		//Nomikomuアニメーションの後だったらクエスト更新
-		if (PlayerState == YakukoState.Nomikomu) {
-			this.YakukoQuest.SetQuest ();
+		if (PlayerState == YakukoState.Nomikomu || PlayerState == YakukoState.AgeruNomu) {
+			this.YakukoQuestFactory.InstantQuest();
 		}
 
-		this.YakukoController.AnimationPlay (3, 0, 1, 1.0f);
+		this.YakukoController.AnimationPlay (5, 0, 1, 1.0f);
 		this.PlayerState = YakukoState.Idle;
 		BigHand.SetActive (true);
 	}
 
-	void Modosu ()
+	void AgeruNomu(){
+		this.YakukoController.AnimationPlay(2,0,1,1.0f);
+		this.PlayerState = YakukoState.AgeruNomu;
+		BigHand.SetActive (false);
+		
+		int YakuNum = this.yakubinScript.DeleteYaku ();
+		int QuestNum = this.YakukoQuestFactory.CurrentNumber;
+		int ans = CalculateAddLifeTime (Mathf.Abs (YakuNum - QuestNum));
+		
+		if(YakuNum == 0){
+			this.PlayerState = YakukoState.Idle;
+			return;
+		}
+		
+		this.LifeTimer.GetComponent<LifeTimer> ().AddTime (ans);
+		this.YakukoQuestFactory.DestroyCurrentQuest();
+	}
+
+	void AgeruIdle ()
 	{
-		this.PlayerState = YakukoState.Modosu;
+		this.YakukoController.AnimationPlay(1,0,1,1.0f);
+		this.PlayerState = YakukoState.AgeruIdle;
+		timer.Start ();
 	}
 
 	void Ageru ()
@@ -158,7 +168,7 @@ public class SiasakiChanController : MonoBehaviour
 
 	void Sageru ()
 	{
-		this.YakukoController.AnimationPlay (2, 1, 1, 1.0f);
+		this.YakukoController.AnimationPlay (7, 1, 1, 1.0f);
 		this.PlayerState = YakukoState.Sageru;
 		AgeSageTime = timer.GetAgeSageTime ();
 		timer.Reset ();
@@ -174,15 +184,15 @@ public class SiasakiChanController : MonoBehaviour
 			yakubinScript.CreateYaku (4);
 		}
 	}
-
+	
 	void Nomikomu ()
 	{
-		this.YakukoController.AnimationPlay (1, 1, 1, 1.0f);
+		this.YakukoController.AnimationPlay (6, 1, 1, 1.0f);
 		this.PlayerState = YakukoState.Nomikomu;
 		BigHand.SetActive (false);
 
 		int YakuNum = this.yakubinScript.DeleteYaku ();
-		int QuestNum = this.YakukoQuest.CurrentNumber;
+		int QuestNum = this.YakukoQuestFactory.CurrentNumber;
 		int ans = CalculateAddLifeTime (Mathf.Abs (YakuNum - QuestNum));
 
 		if(YakuNum == 0){
@@ -191,8 +201,8 @@ public class SiasakiChanController : MonoBehaviour
 		}
 
 		this.LifeTimer.GetComponent<LifeTimer> ().AddTime (ans);
+		this.YakukoQuestFactory.DestroyCurrentQuest();
 
-		this.YakukoQuest.HideQuest ();
 	}
 
 	//飲んだ個数によって寿命を増やすか減らすか決めるメソッド
