@@ -22,8 +22,16 @@ public class State : MonoBehaviour {
 		StateDestroy();
 	}
 
+	void OnGUI(){
+		StateOnGUI();
+	}
+
 	protected void EndState(){
 		this.isEnd = true;
+	}
+
+	public virtual void StateOnGUI(){
+
 	}
 	
 	public virtual void StateStart(){

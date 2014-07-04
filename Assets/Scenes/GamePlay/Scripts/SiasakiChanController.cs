@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public sealed class YakukoTimer
+public sealed class myTimer
 {
 
 	private float _NowTime = 0.0f;
@@ -56,7 +56,7 @@ public class SiasakiChanController : MonoBehaviour
 
 	private Animator animator;
 	private Script_SpriteStudio_PartsRoot YakukoController;
-	private YakukoTimer timer;//上げてから下げての時間を計測するタイマー
+	private myTimer timer;//上げてから下げての時間を計測するタイマー
 	private Yakubin yakubinScript;
 	private QuestFactory YakukoQuestFactory;
 	private float AgeSageTime = 0.0f;//上げてから下げての時間
@@ -69,6 +69,15 @@ public class SiasakiChanController : MonoBehaviour
 	public GameObject questFactory;
 	public GameObject LifeTimer;
 
+	public delegate void NomikomuCallBack();
+	public event NomikomuCallBack NomikomuCallback;
+
+	public delegate void Nomikomu_to_Idle_CallBack();
+	public event Nomikomu_to_Idle_CallBack Nomikomu_to_Idle_Callback;
+
+	public delegate void CreateYakuCallBack(float AgeSageTime);
+	public event CreateYakuCallBack CreateYakuCallback;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -79,7 +88,7 @@ public class SiasakiChanController : MonoBehaviour
 
 		PlayerState = YakukoState.Idle;
 
-		this.timer = new YakukoTimer ();
+		this.timer = new myTimer ();
 
 		this.yakubinScript = Yakubin.GetComponent<Yakubin> ();
 		this.YakukoQuestFactory = this.questFactory.GetComponent<QuestFactory>();
@@ -126,7 +135,7 @@ public class SiasakiChanController : MonoBehaviour
 
 		//Nomikomuアニメーションの後だったらクエスト更新
 		if (PlayerState == YakukoState.Nomikomu || PlayerState == YakukoState.AgeruNomu) {
-			this.YakukoQuestFactory.InstantQuest();
+			Nomikomu_to_Idle_Callback();
 		}
 
 		this.YakukoController.AnimationPlay (5, 0, 1, 1.0f);
@@ -138,18 +147,8 @@ public class SiasakiChanController : MonoBehaviour
 		this.YakukoController.AnimationPlay(2,0,1,1.0f);
 		this.PlayerState = YakukoState.AgeruNomu;
 		BigHand.SetActive (false);
-		
-		int YakuNum = this.yakubinScript.DeleteYaku ();
-		int QuestNum = this.YakukoQuestFactory.CurrentNumber;
-		int ans = CalculateAddLifeTime (Mathf.Abs (YakuNum - QuestNum));
-		
-		if(YakuNum == 0){
-			this.PlayerState = YakukoState.Idle;
-			return;
-		}
-		
-		this.LifeTimer.GetComponent<LifeTimer> ().AddTime (ans);
-		this.YakukoQuestFactory.DestroyCurrentQuest();
+
+		NomikomuCallback();
 	}
 
 	void AgeruIdle ()
@@ -173,67 +172,16 @@ public class SiasakiChanController : MonoBehaviour
 		AgeSageTime = timer.GetAgeSageTime ();
 		timer.Reset ();
 
-		if (AgeSageTime >= 1.0f) {
-			yakubinScript.CreateYaku (1);
-		} else if (0.6f < AgeSageTime && AgeSageTime <= 0.9f) {
-			yakubinScript.CreateYaku (2);
-		} else if (0.3f < AgeSageTime && AgeSageTime <= 0.6f) {
-			yakubinScript.CreateYaku (3);
-		}
-		if (0.3f > AgeSageTime) {
-			yakubinScript.CreateYaku (4);
-		}
+		CreateYakuCallback(AgeSageTime);
 	}
 	
-	void Nomikomu ()
+	public void Nomikomu ()
 	{
 		this.YakukoController.AnimationPlay (6, 1, 1, 1.0f);
 		this.PlayerState = YakukoState.Nomikomu;
 		BigHand.SetActive (false);
 
-		int YakuNum = this.yakubinScript.DeleteYaku ();
-		int QuestNum = this.YakukoQuestFactory.CurrentNumber;
-		int ans = CalculateAddLifeTime (Mathf.Abs (YakuNum - QuestNum));
-
-		if(YakuNum == 0){
-			this.PlayerState = YakukoState.Idle;
-			return;
-		}
-
-		this.LifeTimer.GetComponent<LifeTimer> ().AddTime (ans);
-		this.YakukoQuestFactory.DestroyCurrentQuest();
-
+		NomikomuCallback();
 	}
 
-	//飲んだ個数によって寿命を増やすか減らすか決めるメソッド
-	int CalculateAddLifeTime (int ans)
-	{
-
-		int num = 0;
-
-		switch (ans) {
-		case 0:
-			num = 5;
-			break;
-			
-		case 1:
-			num = 3;
-			break;
-			
-		case 2:
-			num = 2;
-			break;
-			
-		case 3:
-			num = 1;
-			break;
-			
-		default:
-			num = -1;
-			break;
-		}
-
-		return num;
-	}
-	
 }

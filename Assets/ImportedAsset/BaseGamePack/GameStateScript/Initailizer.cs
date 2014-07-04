@@ -6,21 +6,22 @@ public class Initailizer : State
 
 	public GameObject Text;
 
-	private SiasakiChanController Player;
+	private GameObject Player;
 	private LifeTimer lifeTimer;
 
 	public override void StateStart ()
 	{
 		Text = Instantiate(Text)as GameObject;
 
-		GameObject temp = GameObject.FindGameObjectWithTag("Player")as GameObject;
+		Player = GameObject.FindGameObjectWithTag("Player");
 
+		/*
 		Player = temp.GetComponent<SiasakiChanController>();
 		if(Player == null){
 			Debug.LogError("Player don't exist");
-		}
+		}*/
 
-		Player.FreezePlayer();
+		Player.SendMessage("Freeze",SendMessageOptions.DontRequireReceiver);
 
 		lifeTimer = GameObject.FindGameObjectWithTag("LifeTimer").GetComponent<LifeTimer>();
 	}
@@ -37,7 +38,7 @@ public class Initailizer : State
 	public override void StateDestroy ()
 	{
 		lifeTimer.isStop = false;
-		Player.ResetPlayer();
+		Player.SendMessage("ResetPlayer",SendMessageOptions.DontRequireReceiver);
 		Destroy (Text);
 	}
 }

@@ -20,6 +20,10 @@ public class End : State
 	
 	}
 
+	public override void StateOnGUI ()
+	{
+	}
+
 	public override void StateDestroy ()
 	{
 			
