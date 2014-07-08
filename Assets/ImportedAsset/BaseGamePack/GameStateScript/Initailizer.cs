@@ -14,13 +14,6 @@ public class Initailizer : State
 		Text = Instantiate(Text)as GameObject;
 
 		Player = GameObject.FindGameObjectWithTag("Player");
-
-		/*
-		Player = temp.GetComponent<SiasakiChanController>();
-		if(Player == null){
-			Debug.LogError("Player don't exist");
-		}*/
-
 		Player.SendMessage("Freeze",SendMessageOptions.DontRequireReceiver);
 
 		lifeTimer = GameObject.FindGameObjectWithTag("LifeTimer").GetComponent<LifeTimer>();

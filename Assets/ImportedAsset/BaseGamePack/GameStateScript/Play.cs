@@ -35,19 +35,14 @@ public class Play : State
 			this.isEnd = true;
 		}
 
-		//Questの寿命監視
-		/*if(questFactory.CurrentQuest != null){
-			if(questFactory.TimeOverFlag == true){
-				questFactory.DestroyCurrentQuest();
-				questFactory.InstantQuest();
-			}
+	}
+
+	public override void StateDestroy ()
+	{
+		if(Siasaki != null){
+			Siasaki.FreezePlayer();
 		}
-
-		if(NextTime <= Time.time && QuestLoadFlag == true){
-			QuestLoadFlag = false;
-			questFactory.InstantQuest();
-		}*/
-
+		
 	}
 
 	//ヤクコさんが薬を飲み込んだ時の処理
@@ -117,14 +112,6 @@ public class Play : State
 		}
 		
 		return num;
-	}
-
-	public override void StateDestroy ()
-	{
-		if(Siasaki != null){
-			Siasaki.FreezePlayer();
-		}
-
 	}
 
 }
