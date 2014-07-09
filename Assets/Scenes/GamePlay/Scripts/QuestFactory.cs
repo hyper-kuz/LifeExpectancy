@@ -2,24 +2,19 @@
 using System.Collections;
 
 public class QuestFactory : MonoBehaviour {
-
-	//Questのprefab
-	public GameObject PrefabQuest;
-
-	//現在のクリアに必要なクエストのヤク数
-	private int _CurrentNumber;
-
-	//Questを更新した数
-	private int TrialNumber = 0;
-
-	//ヤク数の放物線
-	public AnimationCurve YakuNumberCurve;
+	
+	public GameObject PrefabQuest;			//Questのprefab
+	private int _CurrentNumber;				//現在のクリアに必要なクエストのヤク数
+	private int TrialNumber = 0;			//Questを更新した数
+	public AnimationCurve YakuNumberCurve;	//ヤク数の放物線
 
 	[HideInInspector]
-	public GameObject CurrentQuest;
-	public Quest CurrentQuestScript;
+	public GameObject CurrentQuest;			//現在のクエスト
+	[HideInInspector]
+	public Quest CurrentQuestScript;		//現在のクエストのスクリプト
 
-	private bool isQuest = false;
+	public delegate void DestroyQuest();
+	public event DestroyQuest DestroyQuestCallBack;
 
 	public int CurrentNumber{get{return _CurrentNumber;}}
 
@@ -32,9 +27,11 @@ public class QuestFactory : MonoBehaviour {
 		CurrentQuestScript = CurrentQuest.GetComponent<Quest>();
 
 		CurrentQuestScript.SetQuest((float)5,this._CurrentNumber);
-		CurrentQuestScript.LifeEndCallBack += DestroyCurrentQuest;
+		CurrentQuestScript.LifeEndCallBack += EndQuestLifeTime;
+	}
 
-		this.isQuest = true;
+	void EndQuestLifeTime(){
+		DestroyQuestCallBack();
 	}
 
 	public void DestroyCurrentQuest(){

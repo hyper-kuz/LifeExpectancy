@@ -49,6 +49,7 @@ public enum YakukoState
 	AgeruNomu,
 	Sageru,
 	Nomikomu,
+	Damage,
 };
 
 public class SiasakiChanController : MonoBehaviour
@@ -57,14 +58,13 @@ public class SiasakiChanController : MonoBehaviour
 	private Animator animator;
 	private Script_SpriteStudio_PartsRoot YakukoController;
 	private myTimer timer;//上げてから下げての時間を計測するタイマー
-	private Yakubin yakubinScript;
 
 	private float AgeSageTime = 0.0f;//上げてから下げての時間
 	private bool Freeze = false;
 
 	public YakukoState PlayerState;
 	public GameObject Yakuko;
-	public GameObject Yakubin;
+	public GameObject yakubin;
 	public GameObject BigHand;
 	public GameObject LifeTimer;
 
@@ -77,6 +77,9 @@ public class SiasakiChanController : MonoBehaviour
 	public delegate void CreateYakuCallBack(float AgeSageTime);
 	public event CreateYakuCallBack CreateYakuCallback;
 
+	public delegate void DamageCallBack();
+	public event DamageCallBack Damage_to_Idle_Callback;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -85,11 +88,9 @@ public class SiasakiChanController : MonoBehaviour
 
 		this.YakukoController.AnimationPlay (3, 0, 1, 1.0f);
 
-		PlayerState = YakukoState.Idle;
+		this.PlayerState = YakukoState.Idle;
 
 		this.timer = new myTimer ();
-
-		this.yakubinScript = Yakubin.GetComponent<Yakubin> ();
 	}
 	
 	// Update is called once per frame
@@ -130,14 +131,27 @@ public class SiasakiChanController : MonoBehaviour
 	void Idle ()
 	{
 
-		//Nomikomuアニメーションの後だったらクエスト更新
-		if (PlayerState == YakukoState.Nomikomu || PlayerState == YakukoState.AgeruNomu) {
+		switch(PlayerState){
+		case YakukoState.AgeruNomu:
+		case YakukoState.Nomikomu:
 			Nomikomu_to_Idle_Callback();
+			break;
+
+		case YakukoState.Damage:
+			Damage_to_Idle_Callback();
+			break;
 		}
 
-		this.YakukoController.AnimationPlay (5, 0, 1, 1.0f);
+		this.YakukoController.AnimationPlay (6, 0, 1, 1.0f);
 		this.PlayerState = YakukoState.Idle;
 		BigHand.SetActive (true);
+	}
+
+	void Damage(){
+		this.YakukoController.AnimationPlay(5,0,1,1.0f);
+		this.PlayerState = YakukoState.Damage;
+
+		BigHand.SetActive(false);
 	}
 
 	void AgeruNomu(){
@@ -164,7 +178,7 @@ public class SiasakiChanController : MonoBehaviour
 
 	void Sageru ()
 	{
-		this.YakukoController.AnimationPlay (7, 1, 1, 1.0f);
+		this.YakukoController.AnimationPlay (8, 1, 1, 1.0f);
 		this.PlayerState = YakukoState.Sageru;
 		AgeSageTime = timer.GetAgeSageTime ();
 		timer.Reset ();
@@ -174,7 +188,7 @@ public class SiasakiChanController : MonoBehaviour
 	
 	void Nomikomu ()
 	{
-		this.YakukoController.AnimationPlay (6, 1, 1, 1.0f);
+		this.YakukoController.AnimationPlay (7, 1, 1, 1.0f);
 		this.PlayerState = YakukoState.Nomikomu;
 		BigHand.SetActive (false);
 

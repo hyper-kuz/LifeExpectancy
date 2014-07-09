@@ -7,7 +7,10 @@ public class Play : State
 	private SiasakiChanController Siasaki;
 	private QuestFactory questFactory;
 	private Yakubin yakubin;
-	
+
+	public GameObject DamageEffect;
+	private GameObject cloneDamageEffect;
+
 	float NextTime = 0.0f;
 	public float RateQuestTime = 0.5f;
 	bool QuestLoadFlag = false;
@@ -17,14 +20,18 @@ public class Play : State
 		lifeTimer = GameObject.FindGameObjectWithTag("LifeTimer").GetComponent<LifeTimer>();
 		Siasaki = GameObject.FindGameObjectWithTag("Player").GetComponent<SiasakiChanController>();
 		questFactory = GameObject.FindGameObjectWithTag("QuestFactory").GetComponent<QuestFactory>();
-		yakubin = Siasaki.Yakubin.GetComponent<Yakubin>();
+		yakubin = this.Siasaki.yakubin.GetComponent<Yakubin>();
 
 		questFactory.InstantQuest();
 		lifeTimer.isStop = false;
 
+		//コールバック登録
 		Siasaki.NomikomuCallback += NomikomiEvent;
 		Siasaki.Nomikomu_to_Idle_Callback += Nomikomu_to_Idle_Event;
 		Siasaki.CreateYakuCallback += CreateYakuEvent;
+		Siasaki.Damage_to_Idle_Callback += Damage_to_Idle_Event;
+		questFactory.DestroyQuestCallBack += QuestTimeUpEvent;
+
 	}
 
 	public override void StateUpdate ()
@@ -43,6 +50,25 @@ public class Play : State
 			Siasaki.FreezePlayer();
 		}
 		
+	}
+
+	//Questの寿命が切れた時に呼ばれるイベント
+	void QuestTimeUpEvent(){
+		Debug.Log("In Play");
+		Destroy(this.questFactory.CurrentQuest);
+		this.Siasaki.GetComponent<Animator>().SetTrigger("Damage");
+		this.yakubin.DeleteYaku();
+
+		cloneDamageEffect = Instantiate(DamageEffect)as GameObject;
+		this.lifeTimer.isStop = true;
+	}
+
+	void Damage_to_Idle_Event(){
+		this.questFactory.InstantQuest();
+		if(cloneDamageEffect != null){
+			Destroy(cloneDamageEffect);
+		}
+		this.lifeTimer.isStop = false;
 	}
 
 	//ヤクコさんが薬を飲み込んだ時の処理
