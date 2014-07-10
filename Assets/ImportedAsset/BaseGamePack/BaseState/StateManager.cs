@@ -48,8 +48,9 @@ public class StateManager : Singleton<StateManager>
 		if (currentScript.isEnd == true) {
 
 			//前の状態を終了処理させる.
-			if (currentTask != null && currentScript.TransitionState != StateEnum.e_NONE)
+			if (currentTask != null && currentScript.TransitionState != StateEnum.e_NONE){
 				Destroy (currentTask);
+			}
 			else {
 	
 				//Switch文で状態を変更.

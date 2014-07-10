@@ -49,12 +49,15 @@ public class Play : State
 		if(Siasaki != null){
 			Siasaki.FreezePlayer();
 		}
+
+		if(questFactory != null){
+			questFactory.Freeze();
+		}
 		
 	}
 
 	//Questの寿命が切れた時に呼ばれるイベント
 	void QuestTimeUpEvent(){
-		Debug.Log("In Play");
 		Destroy(this.questFactory.CurrentQuest);
 		this.Siasaki.GetComponent<Animator>().SetTrigger("Damage");
 		this.yakubin.DeleteYaku();

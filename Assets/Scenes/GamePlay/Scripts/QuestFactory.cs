@@ -38,4 +38,8 @@ public class QuestFactory : MonoBehaviour {
 		Destroy(CurrentQuest);
 	}
 
+	public void Freeze(){
+		Destroy(this.CurrentQuest);
+	}
+
 }

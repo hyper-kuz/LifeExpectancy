@@ -13,6 +13,7 @@ public class LifeTimer : MonoBehaviour
 	public GameObject LifeUpEffect;
 	public GameObject LifeDownEffect;
 	public int InitLifeTime = 30;
+	public int SumLifeTime = 0;
 	public bool isStop = true;
 
 	public int NowLifeTime{ get { return _NowLifeTime; } }
@@ -53,6 +54,8 @@ public class LifeTimer : MonoBehaviour
 			ReWriteText();
 		} else
 			this.EndTimer ();
+
+		SumLifeTime++;
 
 	}
 
