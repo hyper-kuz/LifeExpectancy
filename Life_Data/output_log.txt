@@ -14,69 +14,7 @@ Platform assembly: C:\Users\kuz\Documents\life_expectancy\Life_Data\Managed\Unit
 Loading C:\Users\kuz\Documents\life_expectancy\Life_Data\Managed\UnityEngine.dll into Unity Child Domain
 Platform assembly: C:\Users\kuz\Documents\life_expectancy\Life_Data\Managed\Assembly-CSharp.dll (this message is harmless)
 Loading C:\Users\kuz\Documents\life_expectancy\Life_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.083 seconds
+- Completed reload, in  0.080 seconds
 <RI> Initializing input.
 <RI> Input initialized.
-desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
-UnloadTime: 0.345249 ms
-same object exist
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-same object exist
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 297.
-Total: 0.740173 ms (FindLiveObjects: 0.011084 ms CreateObjectMapping: 0.007799 ms MarkObjects: 0.252471 ms  DeleteObjects: 0.036126 ms)
-
-UnloadTime: 1.336252 ms
-Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 103 unused Assets to reduce memory usage. Loaded Objects now: 184.
-Total: 1.642913 ms (FindLiveObjects: 0.024631 ms CreateObjectMapping: 0.021347 ms MarkObjects: 0.266018 ms  DeleteObjects: 0.369060 ms)
-
-UnloadTime: 0.520132 ms
-same object exist
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-same object exist
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 328.
-Total: 1.775922 ms (FindLiveObjects: 0.029147 ms CreateObjectMapping: 0.019294 ms MarkObjects: 0.751257 ms  DeleteObjects: 0.080051 ms)
-
-UnloadTime: 0.932297 ms
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 100 unused Assets to reduce memory usage. Loaded Objects now: 174.
-Total: 1.557524 ms (FindLiveObjects: 0.029968 ms CreateObjectMapping: 0.020936 ms MarkObjects: 0.261913 ms  DeleteObjects: 0.380965 ms)
-
-UnloadTime: 0.558311 ms
-same object exist
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-same object exist
- 
-(Filename: C:/BuildAgent/work/d63dfc6385190b60/artifacts/StandalonePlayerGenerated/UnityEngineDebug.cpp Line: 49)
-
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 328.
-Total: 1.697923 ms (FindLiveObjects: 0.029557 ms CreateObjectMapping: 0.019705 ms MarkObjects: 0.680647 ms  DeleteObjects: 0.100167 ms)
-
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.GameObject:SendMessage (string,object,UnityEngine.SendMessageOptions)
-  at UnityEngine.GameObject.SendMessage (System.String methodName, SendMessageOptions options) [0x00000] in <filename unknown>:0 
-  at Initailizer.StateDestroy () [0x00000] in <filename unknown>:0 
-  at State.OnDestroy () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
+desktop: 1366x768 60Hz; virtual: 1380x1536 at -14,-768
