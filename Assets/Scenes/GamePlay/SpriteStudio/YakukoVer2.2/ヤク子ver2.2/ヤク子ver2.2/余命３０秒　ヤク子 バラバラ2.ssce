@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SpriteStudioCellMap version="1.00.01">
+	<name>余命３０秒　ヤク子 バラバラ2</name>
+	<exportPath></exportPath>
+	<generator>SpriteStudio</generator>
+	<packed>0</packed>
+	<imagePath>余命３０秒　ヤク子 バラバラ2.png</imagePath>
+	<pixelSize>2048 2048</pixelSize>
+	<overrideTexSettings>0</overrideTexSettings>
+	<wrapMode>clamp</wrapMode>
+	<filterMode>linear</filterMode>
+	<imagePathAtImport></imagePathAtImport>
+	<packInfoFilePath></packInfoFilePath>
+	<texPackSettings>
+		<maxSize>4096 4096</maxSize>
+		<forcePo2>1</forcePo2>
+		<forceSquare>0</forceSquare>
+		<margin>0</margin>
+		<padding>1</padding>
+	</texPackSettings>
+	<cells>
+		<cell>
+			<name>atama</name>
+			<pos>20 13</pos>
+			<size>593 597</size>
+			<pivot>0.00590219208970666 -0.371021777391434</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>右肩</name>
+			<pos>86 1265</pos>
+			<size>360 570</size>
+			<pivot>0.258333325386047 0.284210532903671</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>首</name>
+			<pos>148 740</pos>
+			<size>356 344</size>
+			<pivot>-0.0505617968738079 -0.18604651093483</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>左手</name>
+			<pos>492 1172</pos>
+			<size>428 292</size>
+			<pivot>0.308411210775375 -0.143835619091988</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>体</name>
+			<pos>1100 1052</pos>
+			<size>756 924</size>
+			<pivot>0 0</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>右腕</name>
+			<pos>592 572</pos>
+			<size>320 488</size>
+			<pivot>0.415625005960464 -0.165983602404594</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>右手</name>
+			<pos>804 108</pos>
+			<size>360 304</size>
+			<pivot>0.150000005960464 -0.00657894741743803</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>左腕</name>
+			<pos>1416 88</pos>
+			<size>548 360</size>
+			<pivot>0.302919715642929 -0.200000002980232</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>左肩</name>
+			<pos>1696 468</pos>
+			<size>348 544</size>
+			<pivot>-0.140804603695869 0.316176474094391</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>左ぐるぐる</name>
+			<pos>1413 598</pos>
+			<size>93 73</size>
+			<pivot>-0.220430105924606 0.061643835157156</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>右ぐるぐる</name>
+			<pos>1218 605</pos>
+			<size>136 84</size>
+			<pivot>0.198529407382011 0.0476190485060215</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+		<cell>
+			<name>汗</name>
+			<pos>912 512</pos>
+			<size>140 120</size>
+			<pivot>-0.0142857143655419 0.0416666679084301</pivot>
+			<rotated>0</rotated>
+			<orgImageName></orgImageName>
+			<posStable>0</posStable>
+		</cell>
+	</cells>
+</SpriteStudioCellMap>
